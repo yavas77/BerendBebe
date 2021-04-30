@@ -1,0 +1,97 @@
+﻿@model ProductImageListDto
+@{
+    ViewData["Title"] = "ProductImageList";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">"@Model.ProductName" isimli ürüne Ait Resimler</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Ürün Resimler</a></li>
+                    <li class="breadcrumb-item active">Ürün Resim Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="ProductImageAdd" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Yeni Resim Ekle</a>
+                        </div>
+                    </div>
+
+                    <div class="card-body text-center">
+                        @if (Model.ProductImages.Count > 0)
+                        {
+                            <div class="row text-center">
+                                @foreach (var productImage in Model.ProductImages)
+                                {<div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="card text-center" style="width: 18rem;">
+                                            <img class="card-img-top" src="/img/@productImage.ImageUrl" height="400" alt="">
+                                            <div class="card-body">
+                                                <h5 class="card-title"></h5>
+                                                <p class="card-text"></p>
+                                                @if (Model.ShowImageUrl == productImage.ImageUrl)
+                                                {
+                                                    <span class="lead">Mevcut Ürün Ana Resmi</span>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-area="Admin" asp-controller="Product" asp-action="ProductImageUpdate" asp-route-id="@productImage.Id" class="btn btn-primary btn-sm">Ürün Ana Resmi Yap</a>
+                                                    <a class="delete btn btn-danger btn-sm" data-id="@productImage.Id"><i class="far fa-times-circle"></i> Resmi Sil</a>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                }
+                            </div>
+
+                        }
+                        else
+                        {
+                            <span>Kayıtlı resim bulunamadı.</span>
+                        }
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            $(".delete").click(function () {
+                var product = {
+                    id: $(this).data("id")
+                }
+
+                $.ShowConfirm('Dikkat', 'Resim tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Admin/Product/ImageDelete/', product) }
+                );
+
+            });
+        });
+    </script>
+}

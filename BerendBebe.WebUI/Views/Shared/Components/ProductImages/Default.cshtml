@@ -1,0 +1,49 @@
+﻿@model List<ProductImageDetailListDto>
+@{
+    int sayac = 0;
+}
+<div id="similar-product" class="carousel slide" data-ride="carousel">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        @*@for (int i = 0; i < length; i++)
+            {*@
+        <div class="item active">
+            @foreach (var productImage in Model)
+            {
+                <a class="productImage"><img class="sliderImage" src="/img/@productImage.ImageUrl" style="width:85px!important; height:85px!important"  width="85" height="60" alt=""></a>
+                sayac++;
+                if (sayac == 3)
+                {
+                    break;
+                }
+            }
+
+            @*<a href=""><img src="/User/images/product-details/similar2.jpg" alt=""></a>*@
+            @*<a href=""><img src="/User/images/product-details/similar3.jpg" alt=""></a>*@
+        </div>
+        @* } *@
+
+        @*<div class="item">
+                <a href=""><img src="/User/images/product-details/similar1.jpg" alt=""></a>
+                <a href=""><img src="/User/images/product-details/similar2.jpg" alt=""></a>
+                <a href=""><img src="/User/images/product-details/similar3.jpg" alt=""></a>
+            </div>
+            <div class="item">
+                <a href=""><img src="/User/images/product-details/similar1.jpg" alt=""></a>
+                <a href=""><img src="/User/images/product-details/similar2.jpg" alt=""></a>
+                <a href=""><img src="/User/images/product-details/similar3.jpg" alt=""></a>
+            </div>*@
+
+    </div>
+
+    <!-- Controls -->
+    @*<a class="left item-control" href="#similar-product" data-slide="prev">
+        <i class="fa fa-angle-left"></i>
+    </a>
+    <a class="right item-control" href="#similar-product" data-slide="next">
+        <i class="fa fa-angle-right"></i>
+    </a>*@
+</div>
+
+

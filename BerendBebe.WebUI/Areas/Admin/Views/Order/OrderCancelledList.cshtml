@@ -1,0 +1,109 @@
+﻿@model List<OrderAdminListDto>
+@{
+    ViewData["Title"] = "İptal Edilen Siparişler";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">İptal Edilen Siparişler</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Siparişler</a></li>
+                    <li class="breadcrumb-item active">İptal Edilen Siparişler</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Ara">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    @if (Model.Count > 0)
+                    {
+
+
+                        <div class="card-body table-responsive p-0 table table-condensed" style="border-collapse:collapse;">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Sipariş No</th>
+                                        <th>Adı Soyadı</th>
+                                        <th>Telefon</th>
+                                        <th>Email</th>
+                                        <th>Şehir</th>
+                                        <th>Sipariş Durumu</th>
+                                        <th>İptal Tarihi</th>
+                                        <th style="width:80px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var order in Model)
+                                    {
+                                    <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                                        <td>@order.Id</td>
+                                        <td>@order.Name @order.LastName</td>
+                                        <td>@order.Phone</td>
+                                        <td>@order.Email</td>
+                                        <td>@order.City</td>
+                                        <td><OrderStatusWrite order-status="@order.Status"></OrderStatusWrite></td>
+                                        <td>@order.CreateDate.ToShortDateString()</td>
+                                        <td><a asp-controller="Order" asp-action="OrderDetail" asp-route-id="@order.Id" class="btn btn-outline-warning btn-sm">Sipariş Detay</a> </td>
+                                        <td>
+                                    </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    }
+                    else
+                    {
+                        <span>İptal edilen siparişiniz bulunmamaktadır.</span>
+                    }
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script>
+        $('.accordian-body').on('show.bs.collapse', function () {
+            $(this).closest("table")
+                .find(".collapse.in")
+                .not(this)
+                .collapse('toggle')
+        })
+    </script>
+}

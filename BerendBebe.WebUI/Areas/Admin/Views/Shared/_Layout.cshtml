@@ -1,0 +1,395 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Dashboard</title>
+
+
+    <noscript><div><img src="https://mc.yandex.ru/watch/71504854" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/Admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="/Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="/Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/Admin/plugins/jqvmap/jqvmap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/Admin/dist/css/adminlte.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/Admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Admin/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/Admin/plugins/summernote/summernote-bs4.min.css">
+
+    @RenderSection("Head", false)
+
+    <!--jconfirm-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!--jconfirm-->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">Ana Sayfa</a>
+                </li>
+                @*<li class="nav-item d-none d-sm-inline-block">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>*@
+            </ul>
+
+
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <!--<li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">-->
+                            <!-- Message Start -->
+                            <!--<div class="media">
+                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>-->
+                            <!-- Message End -->
+                        <!--</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">-->
+                            <!-- Message Start -->
+                            <!--<div class="media">
+                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        John Pierce
+                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">I got your message bro</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>-->
+                            <!-- Message End -->
+                        <!--</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">-->
+                            <!-- Message Start -->
+                            <!--<div class="media">
+                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Nora Silvester
+                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">The subject goes here</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>-->
+                            <!-- Message End -->
+                        <!--</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>-->
+                <!-- Notifications Dropdown Menu -->
+                @await Component.InvokeAsync("Notification")
+
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                            <i class="fas fa-th-large"></i>
+                        </a>
+                    </li>*@
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="brand-link">
+                <img src="/img/Logo.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">BerendBebe</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="/Admin/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Ömer YAVAŞ</a>
+                    </div>
+                </div>
+
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+
+                        <li class="nav-item @Html.ActiveClass("Category",null,"menu-open")">
+                            <a href="#" class="nav-link @Html.ActiveClass("Category")">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Kategori İşlemleri
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Category" asp-action="Index" class="nav-link @Html.ActiveClass("Category","Index")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Kategoriler</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Category" asp-action="Add" class="nav-link @Html.ActiveClass("Category","Add")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Yeni Kategori</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item @Html.ActiveClass("Product",null,"menu-open")  @Html.ActiveClass("Comment",null,"menu-open") ">
+                            <a href="#" class="nav-link @Html.ActiveClass("Product") @Html.ActiveClass("Comment")">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Ürün İşlemleri
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Product" asp-action="Index" class="nav-link @Html.ActiveClass("Product","Index")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ürünler</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Product" asp-action="Add" class="nav-link @Html.ActiveClass("Product","Add")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Yeni Ürün</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Comment" asp-action="Index" class="nav-link @Html.ActiveClass("Comment","Index")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Yorumlar</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item @Html.ActiveClass("Order",null,"menu-open")">
+                            <a href="#" class="nav-link @Html.ActiveClass("Order")">
+                                <i class="fas fa-shopping-cart nav-icon"></i>
+                                <p>
+                                    Sipariş İşlemleri
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Order" asp-action="Index" class="nav-link @Html.ActiveClass("Order","Index")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tüm Siparişler</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Order" asp-action="OrderWaiting" class="nav-link @Html.ActiveClass("Order","OrderWaiting")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Bekleyen Siparişler</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Order" asp-action="OrderCancelledList" class="nav-link @Html.ActiveClass("Order","OrderCancelledList")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>İptal olan Siparişler</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Order" asp-action="ConfirmedOrderList" class="nav-link @Html.ActiveClass("Order","ConfirmedOrderList")">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Tamamlanan Siparişler</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a asp-area="Admin" asp-controller="MailBox" asp-action="Index" class="nav-link @Html.ActiveClass("MailBox")">
+                                 <i class="far fa-envelope mr-2"></i>
+                                <p>
+                                    Mail İşlemleri
+                                </p>
+                            </a>
+                        </li>
+
+                        @*<li class="nav-item ">
+                                <a asp-area="Admin" asp-controller="Comment" asp-action="Index" class="nav-link @Html.ActiveClass("Comment")">
+                                    <i class="far fa-comments"></i>
+                                    <p>
+                                        Yorumlar
+                                    </p>
+                                </a>
+                            </li>*@
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2020 <a href="#">BerendBebe</a>.</strong>
+            Tüm Hakları Saklıdır.
+            <div class="float-right d-none d-sm-inline-block">
+                @*<b>Version</b> 3.1.0-rc*@
+            </div>
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery -->
+    @*<script src="/Admin/plugins/jquery/jquery.min.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    @*<script src="/Admin/plugins/jquery-ui/jquery-ui.min.js"></script>*@
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="/Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    @*<script src="/Admin/plugins/chart.js/Chart.min.js"></script>*@
+    <!-- Sparkline -->
+    @*<script src="/Admin/plugins/sparklines/sparkline.js"></script>*@
+    <!-- JQVMap -->
+    <!--<script src="/Admin/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/Admin/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
+    <!-- jQuery Knob Chart -->
+    @*<script src="/Admin/plugins/jquery-knob/jquery.knob.min.js"></script>*@
+    <!-- daterangepicker -->
+    @*<script src="/Admin/plugins/moment/moment.min.js"></script>*@
+    @*<script src="/Admin/plugins/daterangepicker/daterangepicker.js"></script>*@
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/Admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    @*<script src="/Admin/plugins/summernote/summernote-bs4.min.js"></script>*@
+    <!-- overlayScrollbars -->
+    <script src="/Admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/Admin/dist/js/adminlte.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/Admin/dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="/Admin/dist/js/pages/dashboard.js"></script>
+
+    <!--jconfirm-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <!--jconfirm-->
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    <partial name="_ClientSideMessagePartial" />
+</body>
+</html>
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - BerendBebe.WebUI</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </head>
+    <body>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BerendBebe.WebUI</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2021 - BerendBebe.WebUI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+    </html>*@

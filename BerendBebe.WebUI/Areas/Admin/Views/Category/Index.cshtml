@@ -1,0 +1,112 @@
+﻿@model List<CategoryListDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Kategoriler</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Kategoriler</a></li>
+                    <li class="breadcrumb-item active">Kategori Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <form method="get">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="s" class="form-control float-right" placeholder="Ara">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    @if (Model.Count > 0)
+                    {
+
+
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Kategori Adı</th>
+                                        <th style="width:120px">Durumu</th>
+                                        <th style="width:120px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var category in Model)
+                                    {
+                                        <tr data-id="@category.Id">
+                                            <td>@category.CategoryName</td>
+                                            <td>
+                                                @Html.Raw(Html.StatusBadge(@category.IsActive))
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Category" asp-action="Update" asp-route-id="@category.Id" class="btn btn-outline-warning btn-sm"> Düzenle </a>
+                                                <a class="delete btn btn-outline-danger btn-sm" data-id="@category.Id">Sil</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    }
+                    else
+                    {
+                        <span>Kayıtlı kategori bulunamadı.</span>
+                    }
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            $(".delete").click(function () {
+                var category = {
+                    id: $(this).data("id")
+                }
+
+                $.ShowConfirm('Dikkat', 'Kategori tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Admin/Category/Delete/', category) }
+                );
+
+            });
+        });
+    </script>
+
+}

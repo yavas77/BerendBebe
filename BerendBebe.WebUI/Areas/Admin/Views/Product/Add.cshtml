@@ -1,0 +1,78 @@
+﻿@model ProductAddDto
+@{
+    ViewData["Title"] = "Add";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Yeni Ürün</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Ürün</a></li>
+                    <li class="breadcrumb-item active">Yeni Ürün</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-area="Admin" asp-controller="Product" asp-action="Add" method="post" class="w-75 mx-auto mt-2 p-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="ProductName"></label>
+                                <input asp-for="ProductName" class="form-control" />
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CategoryId"></label>
+                                <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+                                    <option value="-1" disabled selected>Seçiniz</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Price"></label>
+                                <input asp-for="Price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="UnitInStok"></label>
+                                <input asp-for="UnitInStok" class="form-control" />
+                                <span asp-validation-for="UnitInStok" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- /.card-body -->
+
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->

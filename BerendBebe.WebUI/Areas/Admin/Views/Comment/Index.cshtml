@@ -1,0 +1,119 @@
+﻿@model List<CommentAdminListDto>
+@{
+    ViewData["Title"] = "Yorumlar";
+}
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Yorumlar</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Yorumlar</a></li>
+                    <li class="breadcrumb-item active">Yorum Listesi</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right" placeholder="Ara">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    @if (Model.Count > 0)
+                    {
+
+
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün</th>
+                                        <th>Ad Soyad</th>
+                                        <th>Email Adres</th>
+                                        <th>Yorum Tarihi</th>
+                                        <th style="width:120px">Durumu</th>
+                                        <th style="width:120px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var comment in Model)
+                                    {
+                                        <tr data-id="@comment.Id">
+                                            <td>@comment.ProductName</td>
+                                            <td>@comment.Name</td>
+                                            <td>@comment.EmailAdress</td>
+                                            <td>@comment.CreateDate</td>
+                                            <td>
+                                                @Html.Raw(Html.StatusBadge(comment.IsActive == true))
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Comment" asp-action="Detail" asp-route-id="@comment.Id" class="btn btn-outline-warning btn-sm"> Detay </a>
+                                                <a class="delete btn btn-outline-danger btn-sm" data-id="@comment.Id">Sil</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            Kayıtlı yorum bulunamadı.
+                        </div>
+
+                    }
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            $(".delete").click(function () {
+                var comment = {
+                    id: $(this).data("id")
+                }
+
+                $.ShowConfirm('Dikkat', 'Yorum tamamen silinecek, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Admin/Comment/Delete/', comment) }
+                );
+
+            });
+        });
+    </script>
+
+}

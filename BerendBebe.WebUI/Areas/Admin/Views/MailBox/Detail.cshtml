@@ -1,0 +1,137 @@
+﻿@model ContactDetailAdminDto
+@{
+    ViewData["Title"] = "Mail Detay";
+}
+
+<!--Content Header (Page header)*-->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Mail Kutusu</h1>
+            </div>
+            <!--/.col*-->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Mail</a></li>
+                    <li class="breadcrumb-item active">Mail Oku</li>
+                </ol>
+            </div>
+            <!--/.col*-->
+        </div>
+        <!--/.row*-->
+    </div>
+    <!--/.container-fluid*-->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-3">
+
+                <partial name="MailBoxMenuPartial" />
+                <!-- /.card-body -->
+
+            </div>
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">@Model.Subject Mail İçeriği </h3>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="mailbox-read-info">
+                            <h5>@Model.Subject</h5>
+                            <h6>
+                                From: @Model.EmailAdress
+                                <span class="mailbox-read-time float-right">@Model.CreateDate.ToString("dd MMMM yyyy")</span>
+                            </h6>
+                        </div>
+                        <!-- /.mailbox-read-info -->
+                        <div class="mailbox-controls with-border text-center">
+                            <div class="btn-group">
+                                @*<button type="button" class="btn btn-default btn-sm delete" data-container="body" title="Sil">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>*@
+
+                            </div>
+                            <!-- /.btn-group -->
+
+                        </div>
+                        <!-- /.mailbox-controls -->
+                        <div class="mailbox-read-message">
+
+                            @Html.Raw(Model.Message)
+
+                        </div>
+                        <!-- /.mailbox-read-message -->
+                    </div>
+                    <!-- /.card-body -->
+                    <!-- /.card-footer -->
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <a asp-area="Admin" asp-controller="MailBox" asp-action="Reply" asp-route-id="@Model.Id" class="btn btn-default"><i class="fas fa-share"></i> Cevapla</a>
+                        </div>
+
+                        <a class="btn btn-default delete" data-id="@Model.Id"><i class="far fa-trash-alt"></i> Sil</a>
+                        @if (Model.IsDelete == false)
+                        {
+                            <a asp-area="Admin" asp-controller="MailBox" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default" data-container="body" title="Reply">
+                                <i class="fas fa-reply"></i> Okunmadı olarak işaretle
+                            </a>
+                        }
+
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+@section Scripts{
+
+    @if (Model.IsDelete == true)
+    {
+        <script>
+            $().ready(function () {
+                $(".delete").click(function () {
+                    var commentDto = {
+                        id: $(this).data("id"),
+                    }
+
+                    $.ShowConfirm('Dikkat', 'Mail çöp kutusuna gönderilecek. Devam etmek istiyor musunuz?', 'Evet', 'Hayır',
+                        function () { $.AjaxDelete('/Admin/MailBox/Delete/', commentDto) }
+                    )
+                })
+            })
+
+        </script>
+    }
+    else
+    {
+        <script>
+            $().ready(function () {
+                $(".delete").click(function () {
+                    var commentDto = {
+                        id: $(this).data("id"),
+                    }
+
+                    $.ShowConfirm('Dikkat', 'Mail tamamen silinecek. Devam etmek istiyor musunuz?', 'Evet', 'Hayır',
+                        function () { $.AjaxDelete('/Admin/MailBox/Delete/', commentDto) }
+                    )
+                })
+            })
+
+        </script>
+    }
+
+}

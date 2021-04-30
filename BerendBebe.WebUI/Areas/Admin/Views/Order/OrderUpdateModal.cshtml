@@ -1,0 +1,66 @@
+﻿@model OrderUpdateAdminDto
+
+<div class="modal fade" id="OrderUpdateModal" tabindex="-1" role="dialog" aria-labelledby="OrderUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form asp-area="Admin" asp-controller="Order" asp-action="OrderUpdate" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="OrderUpdateModalLabel">Ürün Bilgilerini Giriniz</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="col-form-label"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="col-form-label"></label>
+                        <input asp-for="LastName" class="form-control">
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone" class="col-form-label"></label>
+                        <input asp-for="Phone" class="form-control">
+                        <span asp-validation-for="Phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="col-form-label"></label>
+                        <input asp-for="Email" class="form-control">
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="col-form-label"></label>
+                        <textarea asp-for="Address" class="form-control"></textarea>
+                        <span asp-validation-for="Address"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="col-form-label"></label>
+                        <input asp-for="City" class="form-control">
+                        <span asp-validation-for="City"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PaymentTypeId"></label>
+                        <select asp-for="PaymentTypeId" asp-items="ViewBag.PaymentTypes" class="form-control">
+                        </select>
+                        <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Note" class="col-form-label"></label>
+                        <textarea asp-for="Note" class="form-control"></textarea>
+                        <span asp-validation-for="Note"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

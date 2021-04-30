@@ -1,0 +1,31 @@
+﻿@*@model OrderDetailUpdateAdminDto*@
+
+<div class="modal fade" id="OrderDetailUpdateModal" tabindex="-1" role="dialog" aria-labelledby="OrderDetailUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form asp-area="Admin" asp-controller="Order" asp-action="OrderUpdateQuantity" method="post">
+            @*<input type="hidden" asp-for="Id" />*@
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="OrderDetailUpdateModalLabel">Ürün Miktarını Giriniz</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="Quantity" class="col-form-label"></label>
+                        <input type="text" name="Quantity" id="Quantity" class="form-control">
+                    </div>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

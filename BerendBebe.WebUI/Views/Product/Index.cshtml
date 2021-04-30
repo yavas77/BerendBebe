@@ -1,0 +1,139 @@
+﻿@model List<ProductListDto>
+@{
+    ViewData["Title"] = "Index";
+    string s = (string)ViewBag.Search;
+    string categoryName = (string)ViewBag.CategorySearch;
+}
+<div class="row">
+    <!--Sol Menü-->
+    @await Component.InvokeAsync("SideBar")
+
+    <div class="col-sm-9 padding-right">
+
+        <div class="features_items text-left">
+
+            <!--features_items-->
+            <h2 class="title text-center">Ürünler</h2>
+
+            @if (Model.Count > 0)
+            {
+                @if (!string.IsNullOrWhiteSpace(s))
+                {
+                    <div class="alert alert-info p-3 mb-2" role="alert">
+                        <strong>
+                            @s
+                        </strong> araması için sonuçları görüyorsunuz.
+                        <a asp-controller="Product" asp-action="Index" class="float-right" title="Filtreyi kaldır">Filtreyi kaldır</a>
+                    </div>
+
+                }
+                @if (!string.IsNullOrWhiteSpace(categoryName))
+                {
+                    <div class="alert alert-info p-3 mb-2" role="alert">
+                        <strong>
+                            @categoryName
+                        </strong> kategorisi için sonuçları görüyorsunuz.
+                        <a asp-controller="Product" asp-action="Index" class="float-right" title="Tüm Ürünler">Tüm Ürünleri Gör</a>
+                    </div>
+                }
+                @foreach (var product in Model)
+                {
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper ">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="/img/@product.ShowImageUrl" title="@product.ProductName" height="300" alt="@product.ProductName" />
+                                    <h2>@product.Price ₺</h2>
+                                    <p>@product.ProductName</p>
+                                    @*<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>*@
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <h2>@product.Price ₺</h2>
+                                        <p>@product.ProductName</p>
+                                        @if (product.UnitInStok > 0)
+                                        {
+                                            <a class="btn btn-default add-to-cart AddToCart" data-id="@product.Id"><i class="fa fa-shopping-cart" title="@product.ProductName"></i>Sepete Ekle</a>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="choose">
+                                <ul class="nav nav-pills nav-justified">
+                                    @if (product.UnitInStok > 0)
+                                    {
+                                        <li><a class="btn AddToCart" data-id="@product.Id" title="@product.ProductName"><i class="fa fa-plus-square"></i>Sepete Ekle</a></li>
+                                    }
+                                    <li><a asp-controller="Product" asp-action="Detail" asp-route-id="@product.Id" title="@product.ProductName Ürün detay"><i class="fa fa-plus-square"></i>Ürün Detay</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+                @if (Model.Count > 20)
+                {
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <ul class="pagination">
+                                <li class="active"><a href="">1</a></li>
+                                <li><a href="">2</a></li>
+                                <li><a href="">3</a></li>
+                                <li><a href="">&raquo;</a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                }
+
+
+            }
+            else
+            {
+                @if (!string.IsNullOrWhiteSpace(categoryName))
+                {
+                    <div class="border border-primary p-3 mb-2">
+                        <strong>
+                            @categoryName
+                        </strong> kategorisine ait ürün bulunamadı.
+                        <a asp-controller="Product" asp-action="Index" class="float-right" title="Tüm Ürünler">Tüm Ürünleri Gör</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="border border-primary p-3 mb-2">
+                        Ürün bulunamadı.
+
+                    </div>
+                }
+            }
+
+
+
+        </div><!--features_items-->
+
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            $(".AddToCart").click(function () {
+                var cartAddDto = {
+                    Quantity: 1,
+                    ProductId: $(this).data("id"),
+                    Customer: "Ömer"
+                };
+
+                $.AjaxCartAdd('/Cart/Add/', cartAddDto)
+            });
+        });
+
+    </script>
+}

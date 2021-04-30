@@ -1,0 +1,198 @@
+﻿@model OrderAddDto
+@{
+    ViewData["Title"] = "CheckOrder";
+
+    decimal cartTotal = 0;
+    int quantity = 0;
+    decimal price = 0;
+    decimal productTotal = 0;
+}
+
+<section id="cart_items">
+    <div class="container mt-4">
+        <form asp-controller="Order" asp-action="ConfirmOrder" method="post">
+            <div class="shopper-informations">
+                <div class="row">
+                    <div class="col-sm-8 ">
+                        <div class="shopper-info ">
+                            <p>Müşteri Bilgileri</p>
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Name" placeholder="Ad">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" asp-for="LastName" placeholder="Soyad">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Email" placeholder="Email Adres">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" asp-for="Phone" placeholder="Telefon">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+
+
+                            @*<a class="btn btn-primary" href="">Get Quotes</a>
+                                <a class="btn btn-primary" href="">Continue</a>*@
+                            @* </div>
+                                    </div>
+                                         <div class="col-sm-4">
+                                                        <div class="shopper-info">
+                                <p>&nbsp;</p>*@
+
+                            <div class="form-group">
+                                <input class="form-control" asp-for="City" placeholder="Şehir">
+                                <span asp-validation-for="City" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <textarea rows="3" class="form-control" asp-for="Address" placeholder="Adres"></textarea><span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="shopper-info">
+                            <p>&nbsp;</p>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="payment-options">
+                        <div class="col-sm-8">
+                            <div class="shopper-info ">
+                                <p>&nbsp;</p>
+                                <p>Ödeme Bilgileri</p>
+
+                                @*<label> Ödeme Seçenekleri:</label>*@
+
+                                @foreach (var paymentType in Model.PaymentTypes)
+                                {
+                                    @* <div class="form-check"> *@
+
+                                    <span>
+                                        <label><input type="radio" asp-for="PaymentTypeId" value="@paymentType.Id"> @paymentType.PaymentName</label>
+
+                                    </span>
+
+                                    @*</div>*@
+                                }
+
+                            </div>
+                            <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="payment-options">
+                        <div class="col-sm-8">
+                            <div class="shopper-info ">
+                                <p>&nbsp;</p>
+                                <p>Sipariş Notu</p>
+
+                                <textarea asp-for="Note" class="form-control" placeholder="Siparişiniz ile ilgili not girebilirsiniz." rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-payment">
+                <h2>Gözden Geçir</h2>
+            </div>
+
+            <div class="cart_info">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr class="cart_menu">
+                            <td class="image">Ürün</td>
+                            <td class="description"></td>
+                            <td class="price">Fiyat</td>
+                            <td class="quantity">Miktar</td>
+                            <td class="total">Toplam</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cart in Model.Carts)
+                        {
+                            quantity = cart.Quantity;
+                            price = cart.Product.Price;
+                            productTotal = quantity * price;
+                            cartTotal += productTotal;
+                            <tr>
+                                <td class="cart_product">
+                                    <a href=""><img src="/img/@cart.Product.ShowImageUrl" width="80" alt="@cart.Product.ProductName"></a>
+                                    <input type="hidden" asp-for="ShowImageUrl" value="@cart.Product.ShowImageUrl" />
+                                </td>
+                                <td class="cart_description">
+                                    <h4><a href="" title="@cart.Product.ProductName">@cart.Product.ProductName</a></h4>
+                                    <input type="hidden" asp-for="ProductName" value="@cart.Product.ProductName" />
+
+                                    @*<p>Web ID: 1089772</p>*@
+                                </td>
+                                <td class="cart_price">
+                                    <p>@cart.Product.Price</p>
+                                    <input type="hidden" asp-for="Price" value="@cart.Product.Price" />
+
+                                </td>
+                                <td class="cart_price text-center">
+                                    <div class="cart_quantity_button">
+                                        @*<a class="cart_quantity_up" href=""> + </a>*@
+                                        <p>@cart.Quantity</p>
+                                        <input type="hidden" asp-for="Quantity" value="@cart.Quantity" />
+
+                                        @*<a class="cart_quantity_down" href=""> - </a>*@
+                                    </div>
+                                </td>
+                                <td class="cart_total">
+                                    <p class="cart_total_price">@productTotal.ToString()</p>
+                                </td>
+                                <td class="cart_delete">
+                                    <a class="cart_quantity_delete" data-id="@cart.Id" title="@cart.Product.ProductName"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td colspan="2">
+                                <table class="table table-condensed total-result">
+                                    @*<tr>
+                                            <td>Cart Sub Total</td>
+                                            <td>$59</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Exo Tax</td>
+                                            <td>$2</td>
+                                        </tr>
+                                        <tr class="shipping-cost">
+                                            <td>Shipping Cost</td>
+                                            <td>Free</td>
+                                        </tr>*@
+                                    <tr>
+                                        <td>Toplam</td>
+                                        <td><span>@cartTotal.ToString() ₺</span></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="payment-options">
+
+
+
+                <div class="col-sm-12 text-right mb-3">
+                    <button type="submit" class="btn btn-success btn-lg">Siparişi Onayla</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section> <!--/#cart_items-->

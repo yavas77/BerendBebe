@@ -1,0 +1,59 @@
+﻿@model CommentListDto
+<div class="tab-pane fade" id="reviews">
+    @if (Model.Comments.Count > 0)
+    {
+        <div class="col-sm-12">
+            @foreach (var comment in Model.Comments)
+            {
+                <ul>
+                    <li><a href=""><i class="fa fa-user"></i>@comment.Name</a></li>
+                    @*<li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>*@
+                    <li><a href=""><i class="fa fa-calendar-o"></i>@comment.CreateDate.ToString("dd MMM yyyy") </a></li>
+                </ul>
+                <p>@comment.Content</p>
+                <hr />
+            }
+
+
+
+
+            <p><b>Yorumunuzu Yazınız</b></p>
+
+
+            <form asp-area="Admin" asp-controller="Comment" asp-action="Add">
+                <span>
+                    <input asp-for="Name" placeholder="Ad Soyad" />
+                    <input asp-for="EmailAddress" placeholder="Email Adres" />
+                </span>
+                <textarea asp-for="Content"></textarea>
+                @*<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />*@
+                <button id="AddComment" type="button" class="btn btn-default pull-right">
+                    Kaydet
+                </button>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="col-sm-12">
+
+            <p><b>Yorumunuzu Yazınız</b></p>
+
+
+            <form asp-area="Admin" asp-controller="Comment" asp-action="Add">
+                <span>
+                    <input asp-for="Name" placeholder="Ad Soyad" />
+                    <input asp-for="EmailAddress" placeholder="Email Adres" />
+                </span>
+                <textarea asp-for="Content"></textarea>
+                @*<b>Rating: </b> <img src="images/product-details/rating.png" alt="" />*@
+                <button id="AddComment" type="button" class="btn btn-default pull-right">
+                    Kaydet
+                </button>
+            </form>
+        </div>
+    }
+
+
+</div>
+

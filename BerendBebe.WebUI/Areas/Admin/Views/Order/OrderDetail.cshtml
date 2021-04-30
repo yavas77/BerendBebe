@@ -1,0 +1,243 @@
+﻿@model OrderAdminDetailDto
+@{
+    ViewData["Title"] = "OrderDetail";
+}
+
+
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Sipariş Detayı</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Siparişler</a></li>
+                    <li class="breadcrumb-item active">Sipariş Detayı</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-12">
+
+                <!--<div class="card-header">
+                <h3 class="card-title"></h3>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">-->
+                @*<input type="text" name="table_search" class="form-control float-right" placeholder="Search">*@
+
+                @*<div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>*@
+                <!--</div>
+                    </div>
+                </div>-->
+                <!-- /.card-header -->
+                @if (Model.OrderDetails.Count > 0)
+                {
+                    <div class="card col-md-12">
+                        <p class="lead">Müşteri Bilgileri</p>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#OrderUpdateModal">Ürün Bilgilerini Güncelle</button>
+                        <div class="card-body table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th style="width:20%">Ad Soyad:</th>
+                                    <td>@Model.Name @Model.LastName</td>
+                                </tr>
+                                <tr>
+                                    <th>Telefon: </th>
+                                    <td>@Model.Phone</td>
+                                </tr>
+                                <tr>
+                                    <th>Email: </th>
+                                    <td>@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <th>Adres: </th>
+                                    <td>@Model.Address</td>
+                                </tr>
+                                <tr>
+                                    <th>Şehir: </th>
+                                    <td>@Model.City</td>
+                                </tr>
+                                <tr>
+                                    <th>Ödeme Türü: </th>
+                                    <td>@Model.PaymentTypeName</td>
+                                </tr>
+                                <tr>
+                                    <th>Sipariş Tarihi:</th>
+                                    <td>@Model.CreateDate</td>
+                                </tr>
+                                @if (Model.Status == Order.OrderStatus.InCargo)
+                                {
+                                    <tr>
+                                        <th>Kargoya Verildiği Tarih :</th>
+                                        <td>@Model.LastUpDate</td>
+                                    </tr>
+                                }
+
+
+                                @if (Model.Status == Order.OrderStatus.Cancelled)
+                                {
+                                    <tr>
+                                        <th>İptal Edildiği Tarih :</th>
+                                        <td>@Model.LastUpDate</td>
+                                    </tr>
+                                    <tr>
+                                        <th>İptal Nedeni :</th>
+                                        <td>@Model.CancelDescription</td>
+                                    </tr>
+
+                                }
+                                else if (Model.Status == Order.OrderStatus.Confirmed)
+                                {
+                                    <tr>
+                                        <th>Teslim Edildiği Tarih :</th>
+                                        <td>@Model.LastUpDate</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Sipariş Notu:</th>
+                                        <td>@Model.Note</td>
+                                    </tr>
+
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <th>Sipariş Notu:</th>
+                                        <td>@Model.Note</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-body table-responsive mt-4">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün</th>
+                                        <th></th>
+                                        <th>Fiyat</th>
+                                        <th>Miktar</th>
+                                        <th style="width:100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var orderDetail in Model.OrderDetails)
+                                    {
+                                        <tr data-id="@orderDetail.Id">
+                                            <td><img src="/img/@orderDetail.ShowImageUrl" width="60" /></td>
+                                            <td>@orderDetail.ProductName</td>
+                                            <td>@orderDetail.Price</td>
+                                            <td>@orderDetail.Quantity</td>
+                                            <td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-warning btn-sm" data-id="@orderDetail.Id" data-quantity="@orderDetail.Quantity" data-whatever="@orderDetail.Quantity" data-toggle="modal" data-target="#OrderDetailUpdateModal">Düzenle</button>
+                                                <a class="delete btn btn-outline-danger btn-sm" data-id="@orderDetail.Id">Sil</a>
+                                            </td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <div class="card col-md-12 text-right">
+
+                        <div class="card-body">
+                            @if (Model.Status != Order.OrderStatus.Cancelled)
+                            {
+
+                                @if (Model.CargoName == null || Model.CargoNo == null)
+                                {
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#KargoInfoModal">Kargo Bilgilerini Gir</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#OrderIptalModal"><i class="far fa-times-circle"></i> Iptal Et</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#KargoInfoModal">Kargo Bilgilerini Gör</button>
+
+                                    @if (Model.Status == Order.OrderStatus.Ready)
+                                    {
+                                        <a asp-controller="Order" asp-action="ConfirmOrder" asp-route-id="@Model.Id" class="btn btn-success">Kargoya Verildi</a>
+
+                                    }
+                                    else if (Model.Status == Order.OrderStatus.InCargo)
+                                    {
+                                        <a asp-controller="Order" asp-action="ConfirmOrder" asp-route-id="@Model.Id" class="btn btn-success">Teslim Edildi</a>
+                                    }
+
+                                }
+
+                            }
+
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <span>Siparişe ait ürün bulunamadı.</span>
+                }
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+<!-- Button trigger modal -->
+
+<partial name="KargoInfoModalPartial" />
+<partial name="OrderIptalModalPartial" />
+<partial name="OrderIptalModalPartial" />
+<partial name="OrderDetailUpdateModalPartial" model="new OrderDetailUpdateAdminDto()" />
+
+<partial name="OrderUpdateModal" model="new OrderUpdateAdminDto {
+Address=Model.Address,
+City=Model.City,
+Email=Model.Email,
+Id=Model.Id,
+LastName=Model.LastName,
+Name=Model.Name,
+Note=Model.Note,
+Phone=Model.Phone
+}" />
+
+<partial name="_ValidationScriptsPartial" />
+
+@section Scripts{
+    <script>
+        $().ready(function () {
+            $(".delete").click(function () {
+                var orderDeleteAdminDto = {
+                    id: $(this).data("id"),
+                    OrderId: @Model.Id
+                    };
+
+                $.ShowConfirm('Dikkat', 'Ürün siparişten kaldırılacak!, Devam etmek istiyor musunuz?', 'Evet', 'İptal', function () { $.AjaxDelete('/Admin/Order/OrderProductDelete/', orderDeleteAdminDto) }
+                );
+
+            });
+        });
+    </script>
+
+}

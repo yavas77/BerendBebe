@@ -1,0 +1,216 @@
+﻿@model ProductDetailListDto
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="row">
+
+    <!--Sol Menü-->
+    @await Component.InvokeAsync("SideBar")
+    <div class="col-sm-9 padding-right">
+        <div class="product-details">
+            <!--product-details-->
+            <div class="col-sm-5">
+                <div class="view-product">
+                    <img id="imagePanel" src="/img/@Model.ShowImageUrl" alt="@Model.ProductName" title="@Model.ProductName" />
+                    @*<h3>ZOOM</h3>*@
+                </div>
+
+                @await Component.InvokeAsync("ProductImages", Model.Id)
+
+            </div>
+            <div class="col-sm-7">
+                <div class="product-information">
+                    <!--/product-information-->
+                    @*<img src="/User/images/product-details/new.jpg" class="newarrival" alt="" />*@
+                    <h2>@Model.ProductName</h2>
+                    @*<p>Web ID: 1089772</p>*@
+                    @*<img src="/img/7c60e1b4-952b-4971-abd9-f25c5419cf5b.jpeg" alt="" />*@
+                    <span>
+                        <span>@Model.Price ₺</span>
+                        <label>Miktar:</label>
+                        <input id="quantity" name="quantity" type="text" value="1" />
+                        @if (Model.UnitInStok > 0)
+                        {
+                            <button type="button" class="btn btn-fefault cart AddToCart">
+                                <i class="fa fa-shopping-cart"></i>
+                                Sepete Ekle
+                            </button>
+                        }
+                    </span>
+                    <p>
+                        <b>Stok Durum:</b>
+                        @if (Model.UnitInStok > 0)
+                        {
+                            <span>@Model.UnitInStok adet ürün mevcut</span>
+                        }
+                        else
+                        {
+                            @*<span>Ürün eklenince haber ver</span>*@
+                            <span>Ürün şuan stokta mevcut değil. En kısa sürede yeniden eklenecektir.</span>
+                        }
+                    </p>
+                    @*<p><b>Condition:</b> New</p>*@
+                    @*<p><b>Brand:</b> E-SHOPPER</p>*@
+                    @*<a href=""><img src="/User/images/product-details/share.png" class="share img-responsive" alt="" /></a>*@
+                </div><!--/product-information-->
+            </div>
+        </div><!--/product-details-->
+
+        <div class="category-tab shop-details-tab">
+            <!--category-tab-->
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#details" data-toggle="tab" title="Ürün Açıklaması">Ürün Açıklaması</a></li>
+                    <li><a href="#reviews" data-toggle="tab" title="Değerlendirmeler">Değerlendirmeler</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="details">
+                    <p>@Model.Description</p>
+                </div>
+
+                @await Component.InvokeAsync("Comment", Model.Id)
+
+            </div>
+        </div><!--/category-tab-->
+
+        <div class="recommended_items">
+            <!--recommended_items-->
+            <h2 class="title text-center">recommended items</h2>
+
+            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend1.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend2.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend3.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend1.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend2.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="images/home/recommend3.jpg" alt="" />
+                                        <h2>$56</h2>
+                                        <p>Easy Polo Black Edition</p>
+                                        <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="left recommended-item-control" title="" href="#recommended-item-carousel" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right recommended-item-control" title="" href="#recommended-item-carousel" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div><!--/recommended_items-->
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script>
+        $('.sliderImage').on({
+            'click': function () {
+                $('#imagePanel').attr('src', $(this).attr('src'));
+            }
+        });
+    </script>
+
+    <script>
+        $().ready(function () {
+            $(".AddToCart").click(function () {
+                var cartAddDto = {
+                    Quantity: $('#quantity').val(),
+                    ProductId: @Model.Id,
+                    Customer: "Ömer"
+                };
+
+                $.AjaxCartAdd('/Cart/Add/',cartAddDto)
+            });
+        });
+
+    </script>
+
+    <script>
+        $().ready(function () {
+            $("#AddComment").click(function () {
+                var commentAddDto = {
+                    Name: $('#Name').val(),
+                    EmailAdress: $('#EmailAddress').val(),
+                    Content: $('#Content').val(),
+                    ProductId: @Model.Id,
+                    IsActive: false
+                };
+
+                $.AjaxCommentAdd('/Comment/Add/', commentAddDto)
+            });
+        });
+
+    </script>
+}
+
+

@@ -1,0 +1,85 @@
+﻿@model ProductImageAddDto
+@{
+    ViewData["Title"] = "ProductImageAdd";
+}
+
+@section Head{
+
+
+
+}
+
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Yeni Resim Ekle</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Ürün</a></li>
+                    <li class="breadcrumb-item active">Ürün Resim Ekle</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+
+<form asp-area="Admin" asp-controller="Product" asp-action="ProductImageAdd" method="post" class="w-75 shadow mx-auto mt-2 p-2" enctype="multipart/form-data">
+    <!-- files -->
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <span class="lead text-danger">@Model.ProductName Adlı Ürüne Yeni Resim Ekle</span>
+        </div>
+
+        <input asp-for="ProductId" type="hidden" />
+    </div>
+
+
+    <div id="files" class="p-2 text-right">
+
+        <div class="row mt-2 p-2 mx-auto">
+            <label class="mr-2"> Dosya seçiniz</label>
+            <input type="file" name="file" class="file form-control col-8 mr-2">
+            <a href="javascript:void(0);" class="add btn btn-success btn-sm">+ Ekle</a>
+        </div>
+    </div>
+    <!-- //files -->
+
+    <input type="submit" class="btn btn-primary" value="Dosyaları Yükle">
+</form>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // Ekleme düğmesine tıklandığında
+            // Düğmeye tıklamak yerine dosya seçildiği zaman işlem yapılmasını istiyorsanız
+            // şu ifadeyi kullanabilirsiniz: $(document).on("change", ".file", function(){
+            $(document).on("click", ".add", function () {
+
+                // Klonlamak için formun ilk öğesini tanımla
+                var row = $("#files .row:first-child").clone();
+
+                // "kaldır" linki ekle, "ekle" linkini kaldır
+                row.append('<a href="javascript:void(0);" class="remove btn btn-danger btn-sm">- Kaldır</a>')
+                    .find(".add").remove();
+
+                // Klonu ekle
+                $("#files").append(row);
+
+            });
+
+            // Kaldır
+            $(document).on("click", ".remove", function () {
+                // Kaldır
+                $(this).parent(".row").remove();
+            });
+
+        }); //doc ready end
+    </script>
+
+}
